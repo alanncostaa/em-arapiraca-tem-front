@@ -1,28 +1,19 @@
 import { useState } from "react";
 import { Input } from "../Form/Input";
-import { ITarefa } from "@/app/types/tarefa";
+import { ICliente } from "@/app/types/cliente";
+import { useForm } from "react-hook-form";
+
 
 export interface IFormModalProps {
     formTitle: string;
-    AddTarefa: (tarefa: ITarefa) => void;
     closeModal: () => void;
 }
 
 
-export function ModalTarefa({formTitle, closeModal, AddTarefa}: IFormModalProps){
-  const [nome, setNome] = useState('');
-  const [data, setData] = useState('');
-  const [status, setStatus] = useState('');
-
-  const handleAddTarefa = () => {
-    AddTarefa({
-      status,
-      data,
-      nome
-    });
-
-    closeModal();
-  }
+export function ModalConfirm({formTitle, closeModal}: IFormModalProps){
+  
+  
+  
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true"> 
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -46,13 +37,12 @@ export function ModalTarefa({formTitle, closeModal, AddTarefa}: IFormModalProps)
           </div>
         </div>
         <form className="flex flex-col gap-4 px-12 mt-4 mb-6">
-            <Input type="search" placeholder="Status" onChange={(e) => setStatus(e.target.value)}/>
-            <Input type="date" placeholder="Data de Entrega" onChange={(e) => setData(e.target.value)}/> 
-            <Input type="text" placeholder="Tarefa" onChange={(e) => setNome(e.target.value)}/>           
+            <h1>Confirma a Operação?</h1>
+               
+          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-color-green text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={closeModal}>Sim</button>
+          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-red text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={closeModal}>Não</button>     
         </form>
-        <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={handleAddTarefa}>Salvar</button>
-        </div>
+        
       </div>
     </div>
   </div>

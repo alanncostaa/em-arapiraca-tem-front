@@ -1,14 +1,46 @@
 import { useState } from "react";
 import { Input } from "../Form/Input";
+import { ICliente } from "@/app/types/cliente";
+import { ClienteService } from "@/service/ClienteService";
 
 export interface IFormModalProps {
     formTitle: string;
+    UpdateCliente: (id:string, data:ICliente) => void;
+    DeleteCliente: (id:string) => void;
     closeModal: () => void;
+    nome: string;
+    celular: string;
+    perfil: string;
+    id: string;
 }
+const clienteService  = new ClienteService()
 
 
-export function ModalClienteEditar({formTitle, closeModal}: IFormModalProps){
-  const handleAddCliente = () => {
+
+export function ModalClienteEditar({formTitle, nome, celular, perfil, id, DeleteCliente, UpdateCliente, closeModal}: IFormModalProps){
+
+  const [nomeUp, setNome] = useState(nome);
+  const [celularUp, setCelular] = useState(celular);
+  const [perfilUp, setPerfil] = useState(perfil);
+
+  nome = nomeUp;
+  celular = celularUp;
+  perfil = perfilUp;
+
+  const handleDeleteCliente = () => {
+
+    DeleteCliente(id)
+    
+    closeModal();
+  }
+
+  const handleUpdateCliente = () => {
+
+    UpdateCliente(id, {
+      nome,
+      celular,
+      perfil
+    })
     
     closeModal();
   }
@@ -35,13 +67,13 @@ export function ModalClienteEditar({formTitle, closeModal}: IFormModalProps){
           </div>
         </div>
         <form className="flex flex-col gap-4 px-12 mt-4 mb-6">
-            <Input type="text" placeholder="Nome do Cliente" />
-            <Input type="tel" placeholder="Número de Celular"/>
-            <Input type="text" placeholder="Peril do instagram (@)"/>            
+            <Input type="text" placeholder="Nome do Cliente" value={nome} onChange={(e) => setNome(e.target.value)} />
+            <Input type="tel" placeholder="Número de Celular" value={celular} onChange={(e) => setCelular(e.target.value)}/>
+            <Input type="text" placeholder="Peril do instagram (@)" value={perfil} onChange={(e) => setPerfil(e.target.value)}/>            
         </form>
         <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleAddCliente}>Salvar</button>
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-red text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleAddCliente}>Excluir</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleUpdateCliente}>Salvar</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md border-2 border-cabecalho text-cabecalho px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleDeleteCliente}>Excluir</button>
         </div>
       </div>
     </div>

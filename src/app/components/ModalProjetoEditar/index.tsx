@@ -1,14 +1,43 @@
 import { useState } from "react";
 import { Input } from "../Form/Input";
+import { IProjeto } from "@/app/types/projeto";
 
 export interface IFormModalProps {
     formTitle: string;
+    id: string;
+    UpdateProjeto: (id:string, projeto: IProjeto)=> void;
+    DeleteProjeto: (id:string)=> void;
     closeModal: () => void;
+    nome: string;
+    valor: number;
+    data: string;
 }
 
 
-export function ModalProjetoEditar({formTitle, closeModal}: IFormModalProps){
-  const handleAddCliente = () => {
+export function ModalProjetoEditar({formTitle, id, nome, valor, data, DeleteProjeto, UpdateProjeto, closeModal}: IFormModalProps){
+  
+  const [nomeUp, setNome] = useState(nome);
+  const [valorUp, setValor] = useState(valor);
+  const [dataUp, setData] = useState(data);
+
+  nome = nomeUp;
+  valor = valorUp;
+  data = dataUp;
+
+  const handleDeleteProjeto = () => {
+    
+    DeleteProjeto(id)
+    
+    closeModal();
+  }
+
+  const handleUpdateProjeto = () => {
+    
+    UpdateProjeto(id, {
+      nome,
+      valor,
+      data
+    })
     
     closeModal();
   }
@@ -35,13 +64,13 @@ export function ModalProjetoEditar({formTitle, closeModal}: IFormModalProps){
           </div>
         </div>
         <form className="flex flex-col gap-4 px-12 mt-4 mb-6">
-            <Input type="text" placeholder="Nome do Projeto" />
-            <Input type="number" placeholder="Valor"/>
-            <Input type="date" placeholder="Data de Vencimento"/>            
+            <Input type="text" placeholder="Nome do Projeto" value={nome} onChange={(e) => setNome(e.target.value)} />
+            <Input type="number" placeholder="Valor" value={valor} onChange={(e) => setValor(Number(e.target.value))} />
+            <Input type="date" placeholder="Data de Vencimento" value={data} onChange={(e) => setData(e.target.value)}/>            
         </form>
         <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleAddCliente}>Salvar</button>
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-red text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleAddCliente}>Excluir</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleUpdateProjeto}>Salvar</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-red text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleDeleteProjeto}>Excluir</button>
         </div>
       </div>
     </div>

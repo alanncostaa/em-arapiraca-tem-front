@@ -1,12 +1,19 @@
 import Image from "next/image"
 import Link from "next/link"
-
+import { useState } from "react";
+import { ModalClienteEditar } from "../ModalClienteEditar";
+import { ICliente } from "@/app/types/cliente";
+import { ClienteService } from "@/service/ClienteService";
 export interface IHeaderProps {
     openModal: () => void;
+    
 }
 
 export interface IClienteProps {
-    openModal: () => void;
+    nome: string;
+    celular: string;
+    perfil: string;
+    id: string;
 }
 
 export function ClientesTop({openModal}: IHeaderProps){
@@ -23,24 +30,43 @@ export function ClientesTop({openModal}: IHeaderProps){
         </div>
     </div>
 }
+ const clienteService = new ClienteService()
+const handleUpdateCliente = async (id:string, cliente: ICliente) =>{
+    console.log(cliente)
+    console.log(id)
+    await clienteService.atualizarClientes(id, cliente)
+    window.location.reload()
+  }
 
-export function Clientes({openModal}:IClienteProps){
-    return <div className="mx-auto max-w-[1120px] flex flex-wrap justify-between pt-4 pb-4 m-2">
+  const handleDeleteCliente = async (id:string) =>{
+    console.log(id)
+    await clienteService.deletarCliente(id)
+    window.location.reload()
+  }
+
+export function Clientes({ celular, perfil, nome, id}:IClienteProps){
+    const openModalCliente = () => setIsModalClienteOpen(true)
+  const closeModalCliente = () => setIsModalClienteOpen(false)
+  const [isModalClienteOpen, setIsModalClienteOpen] = useState(false);
+    return <div className="mx-auto max-w-[1120px] flex flex-wrap justify-between pt-4  m-2">
 
 
             <div className="bg-button basis-3/4 rounded-lg justify-center items-center p-4">
-                <Link className="items-center text-cabecalho w-full font-bold flex justify-between text-center  border-cabecalho opacity-80 hover:opacity-100" href="/DadosCliente">
-                    <p className="text-[16px] w-[185px]">Cliente</p>
+                <Link className="items-center text-cabecalho w-full font-bold flex justify-between text-center  border-cabecalho opacity-80 hover:opacity-100" href={{
+    pathname: "/DadosCliente",
+    query: { id: `${id}` },
+  }}>
+                    <p className="text-[16px] w-[185px]">{nome}</p>
                     <Image className="" src="/images/plus.png" alt="Plus" width={32} height={32}/>
                 </Link>
             </div>
 
             <div className="bg-cabecalho rounded-lg basis-1/4 text-center p-4">
-                <button onClick={openModal}>
+                <button onClick={openModalCliente}>
                     <Image className="" src="/images/editar 2.png" alt="Plus" width={32} height={32}/>
                 </button>
 
             </div>
-         
+            {isModalClienteOpen && (<ModalClienteEditar DeleteCliente={handleDeleteCliente} UpdateCliente={handleUpdateCliente} nome={nome} celular={celular} perfil={perfil} id={id} formTitle="Editar Cliente" closeModal={closeModalCliente}/>)}
     </div>
 }
