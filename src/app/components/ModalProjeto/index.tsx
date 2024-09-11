@@ -68,7 +68,7 @@ export function ModalProjeto({formTitle, closeModal, AddProjeto, id}: IFormModal
             
         </form>
         <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={handleAddProjeto}>Salvar</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={handleAddProjeto}>Salvar</button>
         </div>
       </div>
     </div>

@@ -69,8 +69,8 @@ export function ModalProjetoEditar({formTitle, id, nome, valor, data, DeleteProj
             <Input type="date" placeholder="Data de Vencimento" value={data} onChange={(e) => setData(e.target.value)}/>            
         </form>
         <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-color-green text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleUpdateProjeto}>Salvar</button>
-          <button type="button" className="mt-3 w-full justify-center rounded-md bg-red text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleDeleteProjeto}>Excluir</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleUpdateProjeto}>Salvar</button>
+          <button type="button" className="mt-3 w-full justify-center border-2 border-cabecalho rounded-md  text-cabecalho px-2 py-4 text-normal font-semibold shadow-sm m-2 hover:opacity-80 sm:mt-0" onClick={handleDeleteProjeto}>Excluir</button>
         </div>
       </div>
     </div>

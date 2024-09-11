@@ -58,7 +58,7 @@ export function ModalCliente({formTitle, closeModal, AddCliente}: IFormModalProp
             <Input id="celular" type="tel" placeholder="Número de Celular" {...register('celular')} onChange={(e) => setCelular(e.target.value)}/>
             <Input id="perfil" type="text" placeholder="Peril do instagram (@)" {...register('perfil')} onChange={(e) => setPerfil(e.target.value)}/> 
                
-          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-color-green text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={handleAddCliente}>Salvar</button>
+          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={handleAddCliente}>Salvar</button>
                
         </form>
         

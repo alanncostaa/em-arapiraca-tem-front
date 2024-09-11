@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ModalClienteEditar } from "../ModalClienteEditar";
 import { ICliente } from "@/app/types/cliente";
 import { ClienteService } from "@/service/ClienteService";
+import { ModalConfirm } from "../ModalConfirm";
 export interface IHeaderProps {
     openModal: () => void;
     
@@ -44,10 +45,15 @@ const handleUpdateCliente = async (id:string, cliente: ICliente) =>{
     window.location.reload()
   }
 
+
 export function Clientes({ celular, perfil, nome, id}:IClienteProps){
     const openModalCliente = () => setIsModalClienteOpen(true)
   const closeModalCliente = () => setIsModalClienteOpen(false)
   const [isModalClienteOpen, setIsModalClienteOpen] = useState(false);
+
+  const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
+  const openModalConfirm = () => setIsModalConfirmOpen(true)
+    const closeModalConfirm = () => setIsModalConfirmOpen(false)
     return <div className="mx-auto max-w-[1120px] flex flex-wrap justify-between pt-4  m-2">
 
 

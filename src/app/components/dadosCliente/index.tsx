@@ -7,6 +7,7 @@ import { IFinanceiro } from "@/app/types/pagamento";
 import { ModalProjetoEditar } from "../ModalProjetoEditar";
 import { IProjeto } from "@/app/types/projeto";
 import { ClienteService } from "@/service/ClienteService";
+import { ModalConfirm } from "../ModalConfirm";
 
 export interface IClienteProps {
     nome: string;
@@ -73,6 +74,7 @@ const handleUpdateProjeto = async (id:string, projeto: IProjeto) =>{
 }
 
 const handleDeleteProjeto = async (id:string) =>{
+    
     console.log(id)
     await clienteService.deletarProjetos(id)
     window.location.reload()
@@ -91,6 +93,9 @@ export function Projeto({nome, valor, data, id_Projeto}:IProjetoProps){
     const openModalEditar = () => setIsModalEditarOpen(true)
     const closeModalEditar = () => setIsModalEditarOpen(false)
 
+    const [isModalConfirmOpen, setIsModalConfirmOpen] = useState(false);
+  const openModalConfirm = () => setIsModalConfirmOpen(true)
+    const closeModalConfirm = () => setIsModalConfirmOpen(false)
   
 
     return <div className="mx-auto max-w-[1120px] flex pt-2 pb-2">
@@ -101,6 +106,7 @@ export function Projeto({nome, valor, data, id_Projeto}:IProjetoProps){
                 <Image className="" src="/images/editar.png" alt="Plus" width={32} height={32}/>
             </button>
             {isModalEditarOpen && (<ModalProjetoEditar id={id_Projeto} nome={nome} valor={valor} data={data} formTitle="Editar Projeto" DeleteProjeto={handleDeleteProjeto} UpdateProjeto={handleUpdateProjeto} closeModal={closeModalEditar}/>)}
+           
         </div> 
         <div className="items-center bg-cabecalho rounded-lg  basis-1/4 p-4">
             <button className="flex w-full justify-center text-center rounded-lg border-cabecalho opacity-80  pr-8 hover:opacity-100" onClick={openModalFinanceiro}>

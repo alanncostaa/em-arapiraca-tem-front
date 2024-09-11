@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { Input } from "../Form/Input";
 import { ICliente } from "@/app/types/cliente";
-import { useForm } from "react-hook-form";
-
+import { ClienteService } from "@/service/ClienteService";
 
 export interface IFormModalProps {
     formTitle: string;
     closeModal: () => void;
+    confirmacao: () => void;
 }
+const clienteService  = new ClienteService()
 
 
-export function ModalConfirm({formTitle, closeModal}: IFormModalProps){
+
+export function ModalConfirm({formTitle, confirmacao, closeModal}: IFormModalProps){
+
+
+  const [confirmar, setConfirmar] = useState(false)
   
-  
+  const handleConfirmar = () => {
+
+    setConfirmar(true);
+
+    console.log(confirmar)
+    
+    closeModal();
+  }
+
   
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true"> 
@@ -36,13 +49,12 @@ export function ModalConfirm({formTitle, closeModal}: IFormModalProps){
             </div>
           </div>
         </div>
-        <form className="flex flex-col gap-4 px-12 mt-4 mb-6">
-            <h1>Confirma a Operação?</h1>
-               
-          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-color-green text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={closeModal}>Sim</button>
-          <button type="submit" className="mt-3 w-full justify-center rounded-md bg-red text-white mb-2 px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 sm:mt-0" onClick={closeModal}>Não</button>     
-        </form>
         
+        <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
+          <button type="button" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleConfirmar}>Sim</button>
+          <button type="button" className="mt-3 w-full justify-center rounded-md border-2 border-cabecalho text-cabecalho px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={closeModal}>Não</button>
+         
+        </div>
       </div>
     </div>
   </div>

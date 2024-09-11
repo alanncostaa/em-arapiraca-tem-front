@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Input } from "../Form/Input";
 import { ICliente } from "@/app/types/cliente";
 import { ClienteService } from "@/service/ClienteService";
+import { ModalConfirm } from "../ModalConfirm";
 
 export interface IFormModalProps {
     formTitle: string;
@@ -36,6 +37,7 @@ export function ModalClienteEditar({formTitle, nome, celular, perfil, id, Delete
 
   const handleUpdateCliente = () => {
 
+
     UpdateCliente(id, {
       nome,
       celular,
@@ -44,6 +46,9 @@ export function ModalClienteEditar({formTitle, nome, celular, perfil, id, Delete
     
     closeModal();
   }
+  
+
+  
     return (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true"> 
   <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
@@ -74,6 +79,7 @@ export function ModalClienteEditar({formTitle, nome, celular, perfil, id, Delete
         <div className="bg-button px-12 py-3 flex sm:flex-row-reverse w-full mb-16">          
           <button type="button" className="mt-3 w-full justify-center rounded-md bg-cabecalho text-white px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleUpdateCliente}>Salvar</button>
           <button type="button" className="mt-3 w-full justify-center rounded-md border-2 border-cabecalho text-cabecalho px-2 py-4 text-normal font-semibold shadow-sm hover:opacity-80 m-2 sm:mt-0" onClick={handleDeleteCliente}>Excluir</button>
+          
         </div>
       </div>
     </div>
